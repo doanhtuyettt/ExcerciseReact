@@ -9,19 +9,9 @@ const App = () => {
   const exercises2 = 7
   const part3 = 'State of a component'
   const exercises3 = 14
-  const parts =[{
-    part: part1,
-    excercise : exercises1
-  }
-  ,{
-    part: part2,
-    excercise : exercises2
-  }
-  ,{
-    part: part3,
-    excercise : exercises3
-  }
-  ]
+  const parts =[part1, part2,part3]
+  const excercise =[exercises1, exercises2, exercises3]
+
   return (
     <>
       <Header course ={course}/>
