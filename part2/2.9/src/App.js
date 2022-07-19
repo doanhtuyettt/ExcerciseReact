@@ -9,7 +9,16 @@ const App = () => {
   ])
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
-  const [showAll, setshowAll] = useState(true)
+  const [search, setSearch] = useState('')
+
+  const handlerSearchChange = (event) =>{
+    setSearch(event.target.value)
+  }
+
+  const filter = !search
+  ? persons
+  : persons.filter(person => person.name.toLowerCase().includes(search.toLowerCase()))
+
 
   const addPerson =(event) => {
     event.preventDefault()
@@ -18,7 +27,7 @@ const App = () => {
       number :newNumber,
       id: persons.length +1,
     }
-    for(var i=0 ; i < persons.length; i++){
+    for(var i=0 ; i < persons.length; i++){ 
       console.log(newName);
       if(persons[i].name === newName){
         console.log(newName);
@@ -43,7 +52,7 @@ const App = () => {
       <h1>Phonebook</h1>
       <form>
         <div>
-          filter shown with  <input/>
+          filter shown with  <input value={search} onChange={handlerSearchChange}/>
         </div>
       </form>
       
@@ -58,7 +67,13 @@ const App = () => {
         </div>
       </form>
       <h2>Numbers</h2>
-      {persons.map(person =><p key ={person.nanoid}> {person.name} {person.number}</p>)}
+      {filter.map((person) => {
+        return (
+        <p key={person.id}>
+            {person.name} - {person.number}
+        </p>
+    );
+})}
 
     </div>
   )
