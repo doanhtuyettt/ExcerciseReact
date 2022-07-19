@@ -9,7 +9,7 @@ const App = () => {
   const [newNumber, setNewNumber] =useState('')
 
   const addPerson =(event) => {
-    event.preventDefault()
+   
     const person ={
       name : newName,
       number :newNumber,
@@ -32,7 +32,9 @@ const App = () => {
     axios
     .post('http://localhost:3001/persons', person)
     .then(response => {
-      console.log(response)
+      setPersons(persons.concat(response.data))
+      setNewName('')
+      setNewNumber('')
     })
   }
 
