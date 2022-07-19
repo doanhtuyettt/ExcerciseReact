@@ -4,6 +4,7 @@ import axios from 'axios'
 const App = () => {
   const [search, setSearch] = useState('')
   const [country, setCountry] = useState([])
+  const [show, setShow] = useState(true)
 
   useEffect(() => {
     axios
@@ -18,9 +19,14 @@ const App = () => {
       setSearch(event.target.value)
     )
   }
-  const filters = country.filter(countries => countries.name.common.toLowerCase().includes(search.toLowerCase()))
-  console.log(filters);
 
+  const handleShow =(event) => {
+    return(
+      setShow(event.target.value)
+    )
+  }
+  const filters = country.filter(countries => countries.name.common.toLowerCase().includes(search.toLowerCase()))
+ 
   // const renderFilterComponent =  () =>{
   //   if(filters)
   // }
@@ -34,17 +40,26 @@ const App = () => {
             <p>area {countries.area}</p>
 
             <div><b>languages :</b> {Object.keys(countries.languages).map((key)=><li>{countries.languages[key]}</li>)}</div>
-            <img src='https://flagcdn.com/w320/ch.png' alt="flag coutry"/>
+            <img src={countries.flags} alt="flag coutry"/>
           </React.Fragment>)
           ))
           : (filters.length > 10) ?
           <div> Too many matches, specify another filter</div>
           :
-          (filters.map((countries) => <React.Fragment key={countries.name.common}><div>{countries.name.common}</div> <button>show</button></React.Fragment>))
+          (filters.map((countries) => 
+          <React.Fragment key={countries.name.common}>
+            <div>{countries.name.common}</div> 
+            <button onClick={handleShow} value={show}>show</button>
+            {(filters.map((countries) => (<React.Fragment key={countries.name.common}><h1 >{countries.name.common}</h1>
+            <p>capital {countries.capital}</p>
+            <p>area {countries.area}</p>
 
+            <div><b>languages :</b> {Object.keys(countries.languages).map((key)=><li>{countries.languages[key]}</li>)}</div>
+            <img src={countries.flags.png} alt="flag coutry"/>
+          </React.Fragment>)
+          ))}
+          </React.Fragment>))
         }
-
-
 
       </div>
     </form>
